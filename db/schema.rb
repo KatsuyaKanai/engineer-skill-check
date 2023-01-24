@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_23_235131) do
+ActiveRecord::Schema.define(version: 2023_01_24_084239) do
 
   create_table "departments", force: :cascade do |t|
     t.string "name", null: false
@@ -38,6 +38,15 @@ ActiveRecord::Schema.define(version: 2023_01_23_235131) do
     t.index ["office_id"], name: "index_employees_on_office_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "employee_id", null: false
+    t.string "title", null: false
+    t.string "content", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_notifications_on_employee_id"
+  end
+
   create_table "offices", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "deleted_at"
@@ -56,5 +65,6 @@ ActiveRecord::Schema.define(version: 2023_01_23_235131) do
 
   add_foreign_key "employees", "departments"
   add_foreign_key "employees", "offices"
+  add_foreign_key "notifications", "employees"
   add_foreign_key "profiles", "employees"
 end

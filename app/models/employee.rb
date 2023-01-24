@@ -2,12 +2,13 @@ class Employee < ApplicationRecord
   belongs_to :office
   belongs_to :department
   has_many :profiles
+  has_many :notifications
 
   validates :number, presence: true, uniqueness: true
   validates :last_name, presence: true
   validates :first_name, presence: true
   validates :account, presence: true, uniqueness: true
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true
   validates :password, presence: true
   validates :date_of_joining, presence: true
 
