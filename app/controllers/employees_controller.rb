@@ -13,7 +13,7 @@ class EmployeesController < ApplicationController
   def create
     @employee = Employee.new(employee_params)
 
-    add_params
+    # add_params
 
     if @employee.save
       redirect_to employees_url, notice: "社員「#{@employee.last_name} #{@employee.first_name}」を登録しました。"
@@ -48,7 +48,7 @@ class EmployeesController < ApplicationController
   private
 
   def employee_params
-    params.require(:employee).permit(:number, :last_name, :first_name, :account, :password, :department_id, :office_id, :employee_info_manage_auth)
+    params.require(:employee).permit(:number, :last_name, :first_name, :account, :email, :password, :date_of_joining, :department_id, :office_id, :employee_info_manage_auth, :notification_posting_authority)
   end
 
   def set_employee
@@ -61,14 +61,14 @@ class EmployeesController < ApplicationController
   end
 
   # 現在、メールアドレスと入社日は入力できないため、ここで追加しています。
-  def add_params
-    unless @employee.email
-      @employee.email = 'sample@example.com'
-    end
-    unless @employee.date_of_joining
-      @employee.date_of_joining = Date.today
-    end
-  end
+  # def add_params
+  #   unless @employee.email
+  #     @employee.email = 'sample@example.com'
+  #   end
+  #   unless @employee.date_of_joining
+  #     @employee.date_of_joining = Date.today
+  #   end
+  # end
 
   def sort_column
     params[:sort] ? params[:sort] : 'number'
