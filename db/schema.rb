@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_24_084239) do
+ActiveRecord::Schema.define(version: 2023_01_25_013633) do
 
   create_table "departments", force: :cascade do |t|
     t.string "name", null: false
@@ -39,11 +39,11 @@ ActiveRecord::Schema.define(version: 2023_01_24_084239) do
   end
 
   create_table "notifications", force: :cascade do |t|
-    t.integer "employee_id", null: false
     t.string "title", null: false
     t.string "content", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "employee_id", null: false
     t.index ["employee_id"], name: "index_notifications_on_employee_id"
   end
 

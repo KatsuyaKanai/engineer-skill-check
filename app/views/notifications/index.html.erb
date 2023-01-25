@@ -1,14 +1,21 @@
 <p id="notice"><%= notice %></p>
 
 <h1>お知らせ内容</h1>
+<table>
+  <thead>
+    <tr>
+      <th>タイトル</th>
+    </tr>
+  </thead>
 
-<%= form_with model: @notification do |f| %>
-  <%= f.hidden_field :id %>
-  <%= f.label :title, 'タイトル', class:"col-md-6 offset-md-3"%>
-  <%= f.text_field :title, class:"mb-4 col-md-9", required: true %>
-  <%= f.label :content, 'お知らせ内容', class:"col-md-6 offset-md-3" %>
-  <%= f.text_area :content, rows:5, class:"form-control mb-4 col-md-9", required: true %>
-  <%= f.submit "登録", class:"col-md-2 btn btn-primary mx-3" %>
-<% end %>
+  <tbody>
+    <% @notifications.each do |notification| %>
+      <tr>
+        <td><%= notification.title %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 
 <%= link_to 'New Notification', new_notification_path %>
