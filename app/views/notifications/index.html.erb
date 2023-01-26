@@ -1,21 +1,56 @@
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%= notice %></p>
 
 <h1>お知らせ内容</h1>
 <table>
   <thead>
     <tr>
-      <th>タイトル</th>
+      <div class="form_group">
+        <th>タイトル</th>
+      </div>
     </tr>
   </thead>
 
   <tbody>
     <% @notifications.each do |notification| %>
       <tr>
-        <td><%= notification.title %></td>
+        <div class="form_group">
+          <td><%= notification.title %></td>
+        </div>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 
-<%= link_to 'New Notification', new_notification_path %>
+<%= link_to 'New Notification', new_notification_path %> %>
+-->
+<div class="employee_index">
+  <% if flash.notice.present? %>
+    <p><%= flash.notice %></p>
+  <% end %>
+
+  <% if current_user.notification_posting_authority %>
+    <p class="new_employee"><%= link_to '新規追加', new_notification_path, class: 'btn' %></p>
+  <% end %>
+
+  <table class="employee_table">
+    <thead>
+      <tr>
+        <th class="name">タイトル</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% @notifications.each do |notification| %>
+      <tr class="employee">
+        <th class="name"><%= link_to notification.title, notification_path(notification) %></th>
+        <% if current_user.notification_posting_authority %>
+          <% if notification.employee_id == current_user.id %>
+            <th class="btn_th"><%= link_to '編集', edit_notification_path(notification), class: 'btn' %></th>
+            <th class="btn_th"><%= link_to '削除', notification, method: :delete, data: { confirm: "お知らせ「#{notification.title}」を削除します。よろしいですか？" }, class: 'btn' %></th>
+          <% end %>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,17 +1,27 @@
-<%= form_with(model: notification) do |form| %>
-  <% if notification.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(notification.errors.count, "error") %> prohibited this notification from being saved:</h2>
-
-      <ul>
-        <% notification.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
+<div class="employee_form">
+  <% if notification.errors.present? %>
+    <ul>
+      <% notification.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
   <% end %>
 
-  <div class="actions">
-    <%= form.submit %>
+    <%= form_with model: notification do |f| %>
+      <div class="form_group">
+        <%= f.hidden_field :employee_id, value: current_user.id %>
+      </div>
+      <div class="form_group">
+        <%= f.label :title, "タイトル" %>
+        <%= f.text_field :title, placeholder: "タイトルを入力してください" %>
+      </div>
+      <div class="form_group">
+        <%= f.text_area :content, placeholder: "お知らせ内容を入力してください", rows: "10" %>
+      </div>
+      <div class="actions">
+        <%= f.submit "保存" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
+
