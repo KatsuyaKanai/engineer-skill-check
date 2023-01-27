@@ -41,6 +41,7 @@ ja:
       department: 部署
       office: オフィス
       profile: プロフィール
+      notification: お知らせ
     attributes:
       employee:
         number: 社員番号
@@ -56,3 +57,6 @@ ja:
         notification_posting_authority: お知らせ投稿権限
       profile:
         profile: プロフィール
+      notification:
+        title: タイトル
+        content: お知らせ内容

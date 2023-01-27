@@ -6,22 +6,22 @@
       <% end %>
     </ul>
   <% end %>
-
-    <%= form_with model: notification do |f| %>
-      <div class="form_group">
-        <%= f.hidden_field :employee_id, value: current_user.id %>
-      </div>
-      <div class="form_group">
-        <%= f.label :title, "タイトル" %>
-        <%= f.text_field :title, placeholder: "タイトルを入力してください" %>
-      </div>
-      <div class="form_group">
-        <%= f.text_area :content, placeholder: "お知らせ内容を入力してください", rows: "10" %>
-      </div>
-      <div class="actions">
-        <%= f.submit "保存" %>
-      </div>
-    <% end %>
+  <%= form_with model: notification do |f| %>
+    <div class="form_group">
+      <%= f.hidden_field :employee_id, value: current_user.id %>
+    </div>
+    <div class="form_group">
+      <%= f.label :title, "タイトル" %>
+      <%= f.text_field :title, placeholder: "タイトルを入力してください" %>
+    </div>
+    <div class="form_group">
+      <%= f.text_area :content, placeholder: "お知らせ内容を入力してください", size: "38x20" %>
+    </div>
+    <div class="actions">
+      <%= f.submit "保存" %>
+      <%= link_to '一覧に戻る', notifications_path %>
+    </div>
+  <% end %>
   </div>
 </div>
 

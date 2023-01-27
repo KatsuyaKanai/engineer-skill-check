@@ -1,3 +1,4 @@
+<!--
 <div class="employee_form">
   <% if @notification.errors.present? %>
     <ul>
@@ -21,3 +22,7 @@
   <% end %>
   <%= link_to 'Back', notifications_path %>
 </div>
+-->
+<%= render 'form', notification: @notification %>
+
+<%= link_to 'Back', notifications_path %>

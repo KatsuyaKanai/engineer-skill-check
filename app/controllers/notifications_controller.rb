@@ -1,7 +1,9 @@
 class NotificationsController < ApplicationController
 
+  helper_method :sort_column, :sort_direction
+
   def index
-    @notifications = Notification.all
+    @notifications = Notification.all.order("#{sort_column} #{sort_direction}")
   end
   
   def new
@@ -58,6 +60,14 @@ class NotificationsController < ApplicationController
 
   def notification_edit_params
     params.require(:notification).permit(:employee_id, :title, :content)
+  end
+
+  def sort_column
+    Notification.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
   end
   
 end
