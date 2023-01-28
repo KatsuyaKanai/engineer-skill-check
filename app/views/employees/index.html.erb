@@ -37,4 +37,6 @@
       <% end %>
     </tbody>
   </table>
+  <%= paginate @employees %>
+  <%= link_to 'CSVダウンロード', employees_path(format: :csv) %>
 </div>

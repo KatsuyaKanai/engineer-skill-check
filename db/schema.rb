@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_25_013633) do
+ActiveRecord::Schema.define(version: 2023_01_28_065721) do
 
   create_table "departments", force: :cascade do |t|
     t.string "name", null: false
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 2023_01_25_013633) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "notification_posting_authority"
     t.index ["department_id"], name: "index_employees_on_department_id"
+    t.index ["number", "account"], name: "index_employees_on_number_and_account", unique: true
     t.index ["office_id"], name: "index_employees_on_office_id"
   end
 

@@ -1,13 +1,20 @@
 class NotificationsController < ApplicationController
-
   helper_method :sort_column, :sort_direction
 
   def index
-    @notifications = Notification.all.order("#{sort_column} #{sort_direction}")
+    @notifications = Notification.all.order("#{sort_column} #{sort_direction}").page(params[:page]).per(10)
   end
-  
+
+  def show
+    @notification = Notification.find(params[:id])
+  end
+
   def new
     @notification = Notification.new
+  end
+
+  def edit
+    @notification = Notification.find(params[:id])
   end
 
   def create
@@ -19,15 +26,6 @@ class NotificationsController < ApplicationController
       flash[:alert] = "お知らせの投稿に失敗しました"
       render :new
     end
-  end
-
-  def show
-    @notification = Notification.find(params[:id])
-  end
-
-
-  def edit
-    @notification = Notification.find(params[:id])
   end
 
   def update
@@ -45,11 +43,10 @@ class NotificationsController < ApplicationController
     @notification = Notification.find(params[:id])
     if @notification.destroy
       flash[:notice] = "お知らせが削除されました"
-      redirect_to notifications_path
     else
       flash[:alert] = "お知らせの削除に失敗しました"
-      redirect_to notifications_path
     end
+    redirect_to notifications_path
   end
 
   private
@@ -69,5 +66,4 @@ class NotificationsController < ApplicationController
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : 'desc'
   end
-  
 end
