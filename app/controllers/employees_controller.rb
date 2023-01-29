@@ -3,12 +3,15 @@ class EmployeesController < ApplicationController
   before_action :set_form_option, only: %i[new create edit update]
 
   def index
-    @employees = Employee.active.order("#{sort_column} #{sort_direction}").page(params[:page]).per(10)
+    @employees = Employee.all.order("#{sort_column} #{sort_direction}").page(params[:page])
 
     respond_to do |format|
       format.html
       time_now = Time.zone.now.strftime('%Y%m%d%H%M%S')
-      format.csv { send_data render_to_string, filename: "employee_#{time_now}_list.csv", type: :csv }
+      format.csv do
+        @employees = Employee.all
+        send_data render_to_string, filename: "employee_#{time_now}_list.csv", type: :csv
+      end
     end
   end
 
