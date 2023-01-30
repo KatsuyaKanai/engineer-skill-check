@@ -3,6 +3,13 @@ require 'rails_helper'
 RSpec.describe "Employees", type: :model do
 
   describe "employees#new" do
+
+    it "has a valid factory" do
+      office = FactoryBot.create(:office)
+      department = FactoryBot.create(:department)
+      expect(FactoryBot.build(:employee)).to be_valid
+    end
+    
     context "社員番号" do
       it "社員番号が未入力の場合無効である" do
         employee = FactoryBot.build(:employee, number: nil)
@@ -17,12 +24,13 @@ RSpec.describe "Employees", type: :model do
       end
 
       it "社員番号が既に登録されているの場合無効である" do
-        binding.pry
+        office = FactoryBot.create(:office)
+        department = FactoryBot.create(:department)
         employee = FactoryBot.create(:employee)
         employee2 = FactoryBot.build(:employee, number: "1")
         
         employee2.valid?
-        expect(employee2.errors[:number]).to include("はすでに存在しています")
+        expect(employee2.errors[:number]).to include("はすでに存在します")
       end
     end
 
@@ -42,6 +50,15 @@ RSpec.describe "Employees", type: :model do
       employee = FactoryBot.build(:employee, account: nil)
       employee.valid?
       expect(employee.errors[:account]).to include("を入力してください")
+    end
+
+    it "アカウントが重複した場合無効である" do
+      office = FactoryBot.create(:office)
+      department = FactoryBot.create(:department)
+      employee = FactoryBot.create(:employee)
+      employee = FactoryBot.build(:employee, account: "test" )
+      employee.valid?
+      expect(employee.errors[:account]).to include("はすでに存在します")
     end
 
     it "emailが未入力の場合無効である" do
