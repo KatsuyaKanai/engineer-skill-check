@@ -1,4 +1,7 @@
 <div class='session'>
+  <% if flash.notice.present? %>
+    <p><%= flash.notice %></p>
+  <% end %>
   <%= form_for(:employees, url: login_path) do |f| %>
     <div class='form-group'>
       <%= f.label 'アカウント', class: 'form-label' %>

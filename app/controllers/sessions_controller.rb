@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
       employee = Employee.find_by(account: employee_params[:account], password: employee_params[:password])
       if employee
         login(employee)
+        flash[:notice] = "ログインしました。"
         redirect_to root_path
       else
         flash.now[:alert] = 'アカウントもしくはパスワードが一致しません。'
@@ -23,6 +24,7 @@ class SessionsController < ApplicationController
   def destroy
     session.delete(:user_id)
     @current_user = nil
+    flash[:notice] = "ログアウトしました。"
     redirect_to login_path
   end
 
