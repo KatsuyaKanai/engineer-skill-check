@@ -1,14 +1,14 @@
 FactoryBot.define do
   factory :employee do
-    id { '1' }
+    sequence(:id) { |n| "#{n}" }
     department_id { '1' }
     office_id { '1' }
-    number { "1" }
-    last_name { "test" }
-    first_name { "testman" }
-    account { "test" }
+    sequence(:number) { |n| "#{n}" }
+    sequence(:last_name) { |n| "test#{n}" }
+    sequence(:first_name) { |n| "testman#{n}" }
+    sequence(:account) { |n| "test#{n}" }
     password { "testpass" }
-    email { "testman@example.com" }
+    sequence(:email) { |n| "testman#{n}@example.com" }
     date_of_joining { "Thu, 05 Jan 2023" }
     employee_info_manage_auth { true }
     notification_posting_authority { true }

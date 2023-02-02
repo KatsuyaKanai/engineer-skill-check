@@ -27,7 +27,7 @@ RSpec.describe "Employees", type: :model do
         office = FactoryBot.create(:office)
         department = FactoryBot.create(:department)
         employee = FactoryBot.create(:employee)
-        employee2 = FactoryBot.build(:employee, number: "1")
+        employee2 = FactoryBot.build(:employee, number: employee.number)
         
         employee2.valid?
         expect(employee2.errors[:number]).to include("はすでに存在します")
@@ -56,9 +56,9 @@ RSpec.describe "Employees", type: :model do
       office = FactoryBot.create(:office)
       department = FactoryBot.create(:department)
       employee = FactoryBot.create(:employee)
-      employee = FactoryBot.build(:employee, account: "test" )
-      employee.valid?
-      expect(employee.errors[:account]).to include("はすでに存在します")
+      employee2 = FactoryBot.build(:employee, account: employee.account )
+      employee2.valid?
+      expect(employee2.errors[:account]).to include("はすでに存在します")
     end
 
     it "emailが未入力の場合無効である" do
