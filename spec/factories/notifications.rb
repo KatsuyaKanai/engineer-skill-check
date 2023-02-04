@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :notification do
-    employee_id { '1' }
-    title { 'testtitle' }
-    content { 'testcontent' }
+    sequence(:employee_id) { |n| "#{n}" }
+    sequence(:title) { |n| "test#{n}title" }
+    sequence(:content) { |n| "#{n}testcontent" }
   end
 end

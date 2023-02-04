@@ -9,17 +9,17 @@ RSpec.describe "Employees", type: :request do
   let(:employee3) { create(:employee, department_id: 2)}
 
 
+  describe "ログイン前" do
+    it "社員情報一覧ページにアクセスできない。" do
+      get root_path
+      expect(response).to redirect_to login_path
+      # 今通ってない、不明
+      # expect(current_path).to eq login_path
+    end
+  end
+
 
   describe "employee#index" do
-    context "ログイン前" do
-      it "社員情報一覧ページにアクセスできない。" do
-        get root_path
-        expect(response).to have_http_status(302)
-        # 今通ってない、不明
-        # expect(current_path).to eq login_path
-      end
-    end
-
     describe "ログイン後" do
       before do
         login(employee)
@@ -30,9 +30,6 @@ RSpec.describe "Employees", type: :request do
         end
 
         context "社員情報の一覧" do
-          # before do
-          #   get root_path
-          # end
 
           it "社員番号の表示が正しい" do
             #もう一回考える
@@ -55,31 +52,80 @@ RSpec.describe "Employees", type: :request do
             expect(body).to include employee2.department.name
             expect(body).not_to include employee3.department.name
           end
+
+          it "社員情報の上限が10であること" do
+          end
         end
 
         context "employee#new" do
           before do
-            get new_employee_path
-            binding.pry
+            visit new_employee_path
           end
 
           it "新規登録画面にアクセスできること" do
-            expect(response).to have_http_status(200)
+            expect(current_path).to eq new_employee_path
+            # get new_employee_pathでhttp_statusが302になる
+            # expect(response).to have_http_status(200)
+          end
+        end
+
+        # ↓profile_spec？
+        # context "employee#show" do
+        #   before do
+        #     get employee_profiles_path(employee2)
+        #   end
+
+        #   it "新規登録画面にアクセスできること" do
+        #     expect(response).to have_http_status(200)
+        #   end
+
+        #   it "社員情報の詳細が確認できること" do
+        #     expect(response.body).to include employee2.number
+        #     expect(response.body).to include employee2.last_name
+        #     expect(response.body).to include employee2.first_name
+        #     expect(response.body).to include employee2.date_of_joining
+        #     expect(response.body).to include employee2.office.name
+        #     expect(response.body).not_to include employee.number
+        #   end
+        # end
+
+        context "employee#edit" do
+          before do
+            visit edit_employee_path(employee)
+          end
+
+          it "社員情報編集ページにアクセスできること" do
+            expect(current_path).to eq edit_employee_path(employee)
+            # get edit_employee_path(employee)でhttp_statusが302になる
+            # expect(response).to have_http_status(200)
+          end
+
+          it "社員情報編集ページの情報が正しいこと" do
+            expect(body).to include employee.last_name
+            expect(body).not_to include employee2.last_name
+            expect(body).to include employee.account
+            expect(body).to include employee.number
+            expect(body).to include employee.date_of_joining.to_s
           end
 
         end
 
-        context "employee#show" do
-        end
+        # system_spec?
+        # context "employee#destroy" do
+        #   before do
+        #     delete employee_path
+        #   end
 
-        context "employee#edit" do
-        end
-
-        context "employee#update" do
-        end
-
-        context "employee#destroy" do
-        end
+        #   it "社員情報が削除される" do
+        #     binding.pry
+        #     expect(response.body).to include employee.number
+        #     expect(response.body).not_to include employee2.number
+        #     expect(response.body).to include employee.last_name
+        #     expect(response.body).not_to include employee2.last_name
+        #     expect(response.body).to include employee.first_name
+        #     expect(response.body).not_to include employee2.first_name
+        #   end
+        # end
 
 
 

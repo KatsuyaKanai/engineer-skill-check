@@ -85,4 +85,5 @@ class EmployeesController < ApplicationController
   def sort_direction
     params[:direction] || 'asc'
   end
+  
 end
