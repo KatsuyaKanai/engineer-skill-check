@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_20_112406) do
+ActiveRecord::Schema.define(version: 2023_02_06_045617) do
 
   create_table "departments", force: :cascade do |t|
     t.string "name", null: false
@@ -33,8 +33,26 @@ ActiveRecord::Schema.define(version: 2021_10_20_112406) do
     t.datetime "deleted_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "notification_posting_authority"
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.index ["account"], name: "index_employees_on_account", unique: true
     t.index ["department_id"], name: "index_employees_on_department_id"
+    t.index ["email"], name: "index_employees_on_email"
+    t.index ["number"], name: "index_employees_on_number", unique: true
     t.index ["office_id"], name: "index_employees_on_office_id"
+    t.index ["reset_password_token"], name: "index_employees_on_reset_password_token", unique: true
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "content", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "employee_id", null: false
+    t.index ["employee_id"], name: "index_notifications_on_employee_id"
   end
 
   create_table "offices", force: :cascade do |t|
@@ -55,5 +73,6 @@ ActiveRecord::Schema.define(version: 2021_10_20_112406) do
 
   add_foreign_key "employees", "departments"
   add_foreign_key "employees", "offices"
+  add_foreign_key "notifications", "employees"
   add_foreign_key "profiles", "employees"
 end

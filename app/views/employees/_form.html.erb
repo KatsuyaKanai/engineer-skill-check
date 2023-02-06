@@ -27,8 +27,18 @@
     </div>
 
     <div class="form_group">
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+    </div>
+
+    <div class="form_group">
       <%= f.label :password %>
       <%= f.password_field :password %>
+    </div>
+
+    <div class="form_group">
+      <%= f.label :date_of_joining %>
+      <%= f.date_field :date_of_joining %>
     </div>
 
     <div class="form_group">
@@ -44,6 +54,11 @@
     <div class="form_group">
       <%= f.label :employee_info_manage_auth, class: 'checkbox_label' %>
       <%= f.check_box :employee_info_manage_auth, :as => :boolean %>
+    </div>
+
+    <div class="form_group">
+      <%= f.label :notification_posting_authority, class: 'checkbox_label' %>
+      <%= f.check_box :notification_posting_authority, :as => :boolean %>
     </div>
 
     <%= f.submit '保存' %>

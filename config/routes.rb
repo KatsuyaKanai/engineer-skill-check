@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  resources :notifications
   resources :dashboard, only: :index
+  # post 'notifications/new', to: 'notifications#create'
   root 'employees#index'
 
   get    '/login',   to: 'sessions#new'
