@@ -8,7 +8,7 @@ RSpec.describe "Employees", type: :model do
     it "has a valid factory" do
       expect(FactoryBot.build(:employee)).to be_valid
     end
-    
+
     context "社員番号" do
       it "社員番号が未入力の場合無効である" do
         employee = FactoryBot.build(:employee, number: nil)
@@ -50,7 +50,7 @@ RSpec.describe "Employees", type: :model do
 
     it "アカウントが重複した場合無効である" do
       employee = FactoryBot.create(:employee)
-      employee2 = FactoryBot.build(:employee, account: employee.account )
+      employee2 = FactoryBot.build(:employee, account: employee.account)
       employee2.valid?
       expect(employee2.errors[:account]).to include("はすでに存在します")
     end
@@ -60,7 +60,7 @@ RSpec.describe "Employees", type: :model do
       employee.valid?
       expect(employee.errors[:email]).to include("を入力してください")
     end
-  
+
     it "パスワードが未入力の場合無効である" do
       employee = FactoryBot.build(:employee, password: nil)
       employee.valid?

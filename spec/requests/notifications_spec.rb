@@ -6,10 +6,9 @@ RSpec.describe "Notifications", type: :request do
   let!(:employee) { create(:employee) }
   let!(:employee2) { create(:employee, notification_posting_authority: true) }
   let(:employee3) { create(:employee) }
-  let!(:notification) { create(:notification, employee_id: employee.id, created_at: Time.current + 3.days) }
-  let!(:notification2) { create(:notification, employee_id: employee2.id, created_at: Time.current + 2.days) }
+  let!(:notification) { create(:notification, employee_id: employee.id, created_at: 3.days.from_now) }
+  let!(:notification2) { create(:notification, employee_id: employee2.id, created_at: 2.days.from_now) }
   let(:notification3) { create(:notification, employee_id: employee3.id) }
-
 
   describe "ログイン前" do
     it "お知らせページにアクセスできない。" do
@@ -20,16 +19,16 @@ RSpec.describe "Notifications", type: :request do
 
   before do
     login(employee)
-    visit notifications_path
   end
-  
+
   describe "notification#index" do
     # ↓ 通らない。getを使いたいがリダイレクトしている
     # it "お知らせの一覧ページにアクセスできること" do
     #   expect(response).to have_http_status(200)
     # end
-    
+
     it "お知らせ画面の一覧の表示が正しい" do
+      visit notifications_path
       expect(body).to include notification.title
       expect(body).to include notification2.title
       expect(body).not_to include notification3.title
@@ -41,7 +40,6 @@ RSpec.describe "Notifications", type: :request do
       # expect(body).to include notifications.title
       # expect(body).not_to include notification.title
     end
-
   end
 
   # describe "notifications#new" do
@@ -107,5 +105,4 @@ RSpec.describe "Notifications", type: :request do
   #     expect(body).not_to include notification3.title
   #   end
   # end
-
 end

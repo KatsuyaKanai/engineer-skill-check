@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :employee do
-    sequence(:id) { |n| "#{n}" }
+    sequence(:id, &:to_s)
     department_id { '1' }
     office_id { '1' }
-    sequence(:number) { |n| "#{n}" }
+    sequence(:number, &:to_s)
     sequence(:last_name) { |n| "test#{n}" }
     sequence(:first_name) { |n| "testman#{n}" }
     sequence(:account) { |n| "test#{n}" }

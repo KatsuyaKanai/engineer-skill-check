@@ -7,7 +7,7 @@ RSpec.describe Notification, type: :model do
       notification.valid?
       expect(notification.errors[:title]).to include("を入力してください")
     end
-    
+
     it "51文字以上の場合登録に失敗する" do
       notification = FactoryBot.build(:notification, title: "a" * 51)
       notification.valid?

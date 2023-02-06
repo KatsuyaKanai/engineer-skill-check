@@ -4,7 +4,7 @@ class Employee < ApplicationRecord
   has_many :profiles
   has_many :notifications
 
-  validates :number, presence: true, uniqueness: true,numericality: { greater_than_or_equal_to: 0 }
+  validates :number, presence: true, uniqueness: true, numericality: { greater_than_or_equal_to: 0 }
   validates :last_name, presence: true
   validates :first_name, presence: true
   validates :account, presence: true, uniqueness: true
@@ -15,8 +15,9 @@ class Employee < ApplicationRecord
 
   def joining_the_future
     return if date_of_joining.blank?
+
     errors.add(:date_of_joining, "は今日以降の日付は登録できません") unless
-    self.date_of_joining < Date.today
+    date_of_joining < Date.today
   end
 
   scope :active, lambda {

@@ -1,5 +1,7 @@
 require_relative "boot"
 
+require "rails/all"
+
 require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
@@ -40,6 +42,7 @@ module NewsAndEmployeeIntroduction
 
     config.generators do |g|
       g.test_framework :rspec,
+                       fixtures: false,
                        view_specs: false,
                        helper_specs: false,
                        routing_specs: false
